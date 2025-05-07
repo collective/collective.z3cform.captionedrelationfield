@@ -1,0 +1,7 @@
+[program:zeoclient]
+command = plonex zeoclient
+process_name = zeoclient
+directory = /home/ale/Code/plone/packages/collective.z3cform.captionedrelationfield
+priority = 2
+redirect_stderr = false
+stopasgroup = true

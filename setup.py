@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
 """Installer for the collective.z3cform.captionedrelationfield package."""
 
-from setuptools import find_packages
 from setuptools import setup
 
 
 long_description = "\n\n".join(
     [
-        open("README.rst").read(),
-        open("CONTRIBUTORS.rst").read(),
-        open("CHANGES.rst").read(),
+        open("README.md").read(),
+        open("CONTRIBUTORS.md").read(),
+        open("CHANGES.md").read(),
     ]
 )
 
@@ -19,17 +17,21 @@ setup(
     version="1.0a1",
     description="An add-on for Plone that adds a relationfield that can optionally store a caption",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     # Get more from https://pypi.org/classifiers/
     classifiers=[
+        "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
         "Framework :: Plone",
         "Framework :: Plone :: Addon",
-        "Framework :: Plone :: 5.2",
-        "Framework :: Plone :: 6.0",
+        "Framework :: Plone :: 6.1",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     ],
@@ -44,27 +46,27 @@ setup(
         # 'Documentation': 'https://collective.z3cform.captionedrelationfield.readthedocs.io/en/latest/',
     },
     license="GPL version 2",
-    packages=find_packages("src", exclude=["ez_setup"]),
-    namespace_packages=["collective", "collective.z3cform"],
-    package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
-    python_requires=">=3.7",
+    python_requires=">=3.9",
     install_requires=[
         "setuptools",
-        # -*- Extra requirements: -*-
-        "z3c.jbot",
-        "plone.api>=1.8.4",
-        "plone.app.dexterity",
+        "Products.CMFPlone",
+        "plone.app.vocabularies",
+        "plone.app.z3cform",
+        "plone.autoform",
+        "z3c.form",
+        "z3c.relationfield",
+        "zope.i18nmessageid",
+        "zope.interface",
+        "zope.publisher",
+        "zope.schema",
     ],
     extras_require={
         "test": [
+            "plone.api",
             "plone.app.testing",
-            # Plone KGS does not use this version, because it would break
-            # Remove if your package shall be part of coredev.
-            # plone_coredev tests as of 2016-04-01.
-            "plone.testing>=5.0.0",
-            "plone.app.contenttypes",
+            "plone.supermodel",
         ],
     },
     entry_points="""

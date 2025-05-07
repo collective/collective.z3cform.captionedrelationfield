@@ -28,7 +28,6 @@ bin/
 develop-eggs/
 eggs/
 .eggs/
-etc/
 .installed.cfg
 include/
 lib/
@@ -38,6 +37,7 @@ parts/
 pyvenv.cfg
 var/
 local.cfg
+/tmp/
 
 # mxdev
 /instance/
@@ -48,6 +48,7 @@ local.cfg
 /venv/
 .installed.txt
 
+*.nogit.*
 
 ##
 # Add extra configuration options in .meta.toml:

@@ -1,19 +1,13 @@
-# -*- coding: utf-8 -*-
 """Setup tests for this package."""
-from collective.z3cform.captionedrelationfield.testing import (  # noqa: E501
+
+from collective.z3cform.captionedrelationfield.testing import (
     COLLECTIVE_Z3CFORM_CAPTIONEDRELATIONFIELD_INTEGRATION_TESTING,
 )
 from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
+from plone.app.z3cform.widgets.contentbrowser import ContentBrowserWidget
+from z3c.form.browser.object import ObjectWidget
 
 import unittest
-
-
-try:
-    from Products.CMFPlone.utils import get_installer
-except ImportError:
-    get_installer = None
 
 
 class TestSetup(unittest.TestCase):
@@ -24,61 +18,42 @@ class TestSetup(unittest.TestCase):
     def setUp(self):
         """Custom shared utility setup for tests."""
         self.portal = self.layer["portal"]
-        if get_installer:
-            self.installer = get_installer(self.portal, self.layer["request"])
-        else:
-            self.installer = api.portal.get_tool("portal_quickinstaller")
-
-    def test_product_installed(self):
-        """Test if collective.z3cform.captionedrelationfield is installed."""
-        self.assertTrue(
-            self.installer.is_product_installed(
-                "collective.z3cform.captionedrelationfield"
-            )
+        self.request = self.layer["request"]
+        self.demo_view = api.content.get_view(
+            "captioned-relation-field-test-page", self.portal
         )
 
-    def test_browserlayer(self):
-        """Test that ICollectiveZ3CformCaptionedrelationfieldLayer is registered."""
-        from collective.z3cform.captionedrelationfield.interfaces import (
-            ICollectiveZ3CformCaptionedrelationfieldLayer,
+    def test_demo_form_null_submit(self):
+        self.request.method = "POST"
+        self.request.form.update(
+            {
+                "form.buttons.save": "Save",
+            }
         )
-        from plone.browserlayer import utils
+        self.demo_view()
 
-        self.assertIn(
-            ICollectiveZ3CformCaptionedrelationfieldLayer, utils.registered_layers()
-        )
-
-
-class TestUninstall(unittest.TestCase):
-
-    layer = COLLECTIVE_Z3CFORM_CAPTIONEDRELATIONFIELD_INTEGRATION_TESTING
-
-    def setUp(self):
-        self.portal = self.layer["portal"]
-        if get_installer:
-            self.installer = get_installer(self.portal, self.layer["request"])
-        else:
-            self.installer = api.portal.get_tool("portal_quickinstaller")
-        roles_before = api.user.get_roles(TEST_USER_ID)
-        setRoles(self.portal, TEST_USER_ID, ["Manager"])
-        self.installer.uninstall_product("collective.z3cform.captionedrelationfield")
-        setRoles(self.portal, TEST_USER_ID, roles_before)
-
-    def test_product_uninstalled(self):
-        """Test if collective.z3cform.captionedrelationfield is cleanly uninstalled."""
-        self.assertFalse(
-            self.installer.is_product_installed(
-                "collective.z3cform.captionedrelationfield"
-            )
+        self.assertDictEqual(
+            self.request.get("saved_data"),
+            {"regular_relation_field": None, "single": None, "multi": None},
         )
 
-    def test_browserlayer_removed(self):
-        """Test that ICollectiveZ3CformCaptionedrelationfieldLayer is removed."""
-        from collective.z3cform.captionedrelationfield.interfaces import (
-            ICollectiveZ3CformCaptionedrelationfieldLayer,
+    def test_demo_form_single_captioned_relation(self):
+        """Test that the single field of the form."""
+        self.request.method = "POST"
+        self.request.form.update(
+            {
+                "form.widgets.single.widgets.relation": self.portal.UID(),
+                "form.widgets.single-empty-marker": "1",
+                "form.widgets.single.widgets.caption": "Test caption",
+                "form.buttons.save": "Save",
+            }
         )
-        from plone.browserlayer import utils
 
-        self.assertNotIn(
-            ICollectiveZ3CformCaptionedrelationfieldLayer, utils.registered_layers()
-        )
+        self.demo_view()
+        single_widget = self.demo_view.widgets["single"]
+        self.assertIsInstance(single_widget, ObjectWidget)
+        self.assertIsInstance(single_widget.widgets["relation"], ContentBrowserWidget)
+
+        saved_data = self.request.get("saved_data")["single"]
+        self.assertEqual(saved_data.relation.to_object, self.portal)
+        self.assertEqual(saved_data.caption, "Test caption")

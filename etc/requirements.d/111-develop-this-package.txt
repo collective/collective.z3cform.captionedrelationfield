@@ -1,0 +1,4 @@
+# Packages added by plonex install
+-e .[test]
+zope.testrunner
+collective.pdbpp

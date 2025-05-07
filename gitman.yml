@@ -1,0 +1,14 @@
+location: var/gitman
+sources:
+  - repo: git@github.com:plone/plone.app.content.git
+    name: plone.app.content
+    rev: master
+    type: git
+  - repo: git@github.com:plone/plone.app.z3cform.git
+    name: plone.app.z3cform
+    rev: fix-object-widgets
+    type: git
+  - repo: git@github.com:plone/plone.z3cform.git
+    name: plone.z3cform
+    rev: fix-object-widgets
+    type: git

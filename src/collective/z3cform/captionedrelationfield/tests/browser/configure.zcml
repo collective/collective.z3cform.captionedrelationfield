@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="untranslated"
+    >
+
+  <browser:page
+      name="captioned-relation-field-test-page"
+      for="*"
+      class=".demo.TestFormView"
+      permission="zope.Public"
+      />
+
+</configure>

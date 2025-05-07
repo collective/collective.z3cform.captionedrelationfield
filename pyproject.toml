@@ -4,6 +4,44 @@
 [build-system]
 requires = ["setuptools>=68.2"]
 
+[tool.towncrier]
+directory = "news/"
+filename = "CHANGES.md"
+title_format = "## [{version}](https://github.com/twisted/my-project/tree/{version}) - {project_date}"
+issue_format = "[#{issue}](https://github.com/twisted/my-project/issues/{issue})"
+start_string = "<!-- towncrier release notes start -->\n"
+underlines = ["", "", ""]
+
+[[tool.towncrier.type]]
+directory = "breaking"
+name = "Breaking changes:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "feature"
+name = "New features:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "bugfix"
+name = "Bug fixes:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "internal"
+name = "Internal:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "documentation"
+name = "Documentation:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "tests"
+name = "Tests"
+showcontent = true
+
 ##
 # Add extra configuration options in .meta.toml:
 #  [pyproject]
