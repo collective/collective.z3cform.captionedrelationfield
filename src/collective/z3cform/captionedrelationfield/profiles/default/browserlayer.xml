@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers>
+  <layer
+      name="collective.z3cform.captionedrelationfield"
+      interface="collective.z3cform.captionedrelationfield.interfaces.ICollectiveZ3CformCaptionedrelationfieldLayer"
+      />
+</layers>
