@@ -34,7 +34,7 @@ class TestSetup(unittest.TestCase):
 
         self.assertDictEqual(
             self.request.get("saved_data"),
-            {"regular_relation_field": None, "single": None, "multi": None},
+            {"regular_relation_field": None, "single": None},
         )
 
     def test_demo_form_single_captioned_relation(self):
