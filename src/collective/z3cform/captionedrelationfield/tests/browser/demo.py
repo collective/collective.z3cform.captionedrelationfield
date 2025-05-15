@@ -9,6 +9,7 @@ from plone.supermodel import model
 from z3c.form import form
 from z3c.form.form import EditForm
 from z3c.relationfield.schema import RelationChoice
+from zope import schema
 
 
 class ITestSchema(model.Schema):
@@ -31,24 +32,23 @@ class ITestSchema(model.Schema):
         required=False,
     )
 
-
-# FIXME: querying the catalog via @@getSource is not working when you have this
-# field in a list field in a standalone form.
-# It works on edit forms.
-# This is something related to widget traversal, similar to the issue:
-#
-# - https://github.com/plone/plone.z3cform/pull/30
-#
-#    multi = schema.List(
-#        title=_("Multi"),
-#        description=_("Multi captioned relation field"),
-#        value_type=CaptionedRelationField(
-#            title=_("Multi captioned relation field"),
-#            description=_("Multi captioned relation field"),
-#            required=False,
-#        ),
-#        required=False,
-#    )
+    # FIXME: querying the catalog via @@getSource is not working when you have this
+    # field in a list field in a standalone form.
+    # It works on edit forms.
+    # This is something related to widget traversal, similar to the issue:
+    #
+    # - https://github.com/plone/plone.z3cform/pull/30
+    #
+    multi = schema.List(
+        title=_("Multi"),
+        description=_("Multi captioned relation field"),
+        value_type=CaptionedRelationField(
+            title=_("Multi captioned relation field"),
+            description=_("Multi captioned relation field"),
+            required=False,
+        ),
+        required=False,
+    )
 
 
 class TestFormView(AutoExtensibleForm, EditForm):
