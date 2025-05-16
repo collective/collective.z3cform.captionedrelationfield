@@ -6,9 +6,17 @@ sources:
     type: git
   - repo: git@github.com:plone/plone.app.z3cform.git
     name: plone.app.z3cform
-    rev: fix-object-widgets
+    rev: master
     type: git
   - repo: git@github.com:plone/plone.z3cform.git
     name: plone.z3cform
-    rev: fix-object-widgets
+    rev: ale/29/fix
+    type: git
+  - repo: git@github.com:plone/plone.restapi.git
+    name: plone.restapi
+    rev: main
+    type: git
+  - repo: git@github.com:collective/collective.pdbpp.git
+    name: collective.pdbpp
+    rev: main
     type: git
