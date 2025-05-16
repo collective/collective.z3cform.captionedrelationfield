@@ -1,1 +1,2 @@
 plone.app.z3cform == 4.7.6
+zope.testrunner==7.3
