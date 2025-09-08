@@ -20,7 +20,7 @@ jobs:
         python-version: [3.11, 3.13]
 
     steps:
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
       - uses: actions/checkout@v3
@@ -31,7 +31,7 @@ jobs:
             ~/.cache/uv
           key: ${{ runner.os }}-tox-${{ matrix.python-version }}-${{ matrix.plone-version }}-${{ hashFiles('**/setup.py') }}-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/*.cfg') }}-${{ hashFiles('**/constraints.txt') }}-${{ hashFiles('**/tox.ini') }}
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
