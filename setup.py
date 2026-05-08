@@ -1,5 +1,6 @@
 """Installer for the collective.z3cform.captionedrelationfield package."""
 
+from setuptools import find_packages
 from setuptools import setup
 
 
@@ -46,6 +47,9 @@ setup(
         # 'Documentation': 'https://collective.z3cform.captionedrelationfield.readthedocs.io/en/latest/',
     },
     license="GPL version 2",
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    namespace_packages=["collective", "collective.z3cform"],
     include_package_data=True,
     zip_safe=False,
     python_requires=">=3.9",
